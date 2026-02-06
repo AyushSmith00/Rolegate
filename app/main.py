@@ -1,19 +1,9 @@
 from fastapi import FastAPI
-from app.db.database import engine, Base
-from app.models import User
-from app.core.config import Settings
+from app.api.routes import users
 
-Base.metadata.create_all(bind=engine)
+app = FastAPI()
 
-app = FastAPI(
-    title= "settings.app_name",
-    version="settings.app_version",
-    debug="settings.debug"
+app.include_router(users.router)
 
-    )
-
-@app.get("/", tags=["Root"])
-def root():
-    return{"message": "RoleGate API running"}
 
   
