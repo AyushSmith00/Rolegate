@@ -5,6 +5,11 @@ class Settings(BaseSettings):
     app_version: str
     debug: bool = False
 
+    SECRATE_KEY: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+    ALGORITHM: str = "HS256"
+    
+
     class Config:
         env_file = ".env"
 
