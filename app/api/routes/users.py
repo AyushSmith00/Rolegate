@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import session
 
 from app.schemas.user import UserCreate, UserOut
@@ -11,6 +11,8 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 def register_user(
     user_in: UserCreate,
-    db: session = Depends(get_db)
-):
-    return create_user(db, user_in)
+    db: session = Depends(get_db)):
+    try: 
+        return create_user(db, user_in)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
